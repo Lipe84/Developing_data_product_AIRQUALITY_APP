@@ -1,5 +1,6 @@
 library(shiny)
 library(ggplot2)
+library(markdown)
 
 shinyUI(
     # TOP NAVIGATION BAR - global
@@ -41,7 +42,7 @@ shinyUI(
                             
                             # SLIDER - Temperature
                             sliderInput(inputId = "temp",
-                                        label = "Temperature (°F):",
+                                        label = "Temperature (F):",
                                         min = 56,
                                         max = 97,
                                         value = c(56, 97))
@@ -52,11 +53,14 @@ shinyUI(
                             tabsetPanel(
                                 # TAB - Dataset
                                 tabPanel(p(icon("table"), "Airquality Data"),
+                                         h2('Before using the APP, read the tab about "Informations"', align = "center"),
                                          dataTableOutput("dTable")
                                          ), # end of "TAB - Dataset"
                                 
                                 # TAB - Plots
                                 tabPanel(p(icon("line-chart"), "Plotting the Data"),
+                                         h2('You can ONLY change "month"', align = "center"),
+                                         
                                          h4('Ozone level during the month', align = "center"),
                                          plotOutput("ozoneByMonth"),
                                          
@@ -72,6 +76,9 @@ shinyUI(
                                         )
             )
         ),
-        tabPanel(p(icon("question-circle"), "Informations about the Airquality APP"))
+        tabPanel(p(icon("question-circle"), "Informations about the Airquality APP"),
+                 mainPanel(
+                     includeMarkdown("README.md")
+                 ))
 )
 )
